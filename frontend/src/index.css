@@ -1,0 +1,106 @@
+:root {
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* AI Generated Content Styles */
+.generated-content h1,
+.generated-content h2,
+.generated-content h3,
+.generated-content h4,
+.generated-content h5 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.generated-content h1 { font-size: 1.75rem; }
+.generated-content h2 { font-size: 1.5rem; }
+.generated-content h3 { font-size: 1.25rem; }
+
+.generated-content ul,
+.generated-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.generated-content li {
+  margin-bottom: 0.5rem;
+}
+
+.generated-content p {
+  margin-bottom: 1rem;
+}
+
+.generated-content strong {
+  font-weight: 600;
+}
+
+.generated-content code {
+  background-color: #f4f4f5;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.generated-content pre {
+  background-color: #f4f4f5;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Better button transitions */
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Better focus states */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+/* Loading spinner center */
+.spinner-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

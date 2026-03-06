@@ -5,7 +5,7 @@ const passport = require('./config/passport');
 const connectDB = require('./config/db');
 require('dotenv').config();
 
-// Connect to MongoDB
+// Connect to MongoDB (non-blocking)
 connectDB();
 
 const app = express();
@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 const sessionConfig = {
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || 'fallback-secret-change-me',
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -50,17 +50,17 @@ const sessionConfig = {
   }
 };
 
-// Add MongoDB session store in production
-if (process.env.NODE_ENV === 'production' && process.env.MONGODB_URI) {
+// Add MongoDB session store only if MONGODB_URI is set
+if (process.env.MONGODB_URI && process.env.MONGODB_URI.startsWith('mongodb')) {
   try {
     const MongoStore = require('connect-mongo');
     sessionConfig.store = MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
-      ttl: 24 * 60 * 60 // 24 hours
+      ttl: 24 * 60 * 60
     });
-    console.log('Using MongoDB session store');
+    console.log('MongoDB session store configured');
   } catch (err) {
-    console.log('MongoDB session store not available, using memory store');
+    console.log('Using memory session store:', err.message);
   }
 }
 
@@ -84,8 +84,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Server is running' });
 });
 
-// Start server
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'UniNotes API is running' });
+});
+
+// Start server - bind to 0.0.0.0 for Render
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const HOST = '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on ${HOST}:${PORT}`);
 });

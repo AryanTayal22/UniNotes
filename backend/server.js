@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const passport = require('./config/passport');
 const connectDB = require('./config/db');
 require('dotenv').config();
@@ -38,22 +37,34 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session middleware with MongoDB store for production
-app.use(session({
+// Session configuration
+const sessionConfig = {
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI,
-    ttl: 24 * 60 * 60 // 24 hours
-  }),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   }
-}));
+};
+
+// Add MongoDB session store in production
+if (process.env.NODE_ENV === 'production' && process.env.MONGODB_URI) {
+  try {
+    const MongoStore = require('connect-mongo');
+    sessionConfig.store = MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+      ttl: 24 * 60 * 60 // 24 hours
+    });
+    console.log('Using MongoDB session store');
+  } catch (err) {
+    console.log('MongoDB session store not available, using memory store');
+  }
+}
+
+app.use(session(sessionConfig));
 
 // Passport middleware
 app.use(passport.initialize());

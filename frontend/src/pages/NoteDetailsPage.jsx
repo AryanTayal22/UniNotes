@@ -148,7 +148,7 @@ function NoteDetailsPage() {
                       key={index} 
                       style={{ 
                         background: 'rgba(59, 130, 246, 0.1)', 
-                        color: '#3B82F6',
+                        color: '#ffffff',
                         marginRight: '0.5rem',
                         marginBottom: '0.5rem',
                         fontWeight: 500

@@ -142,7 +142,7 @@ function NoteDetailsPage() {
 
               {note.tags && note.tags.length > 0 && (
                 <div className="mb-4">
-                  <h6 style={{ fontWeight: 700, marginBottom: '0.75rem', color: '#1f2937' }}>Tags</h6>
+                  <h6 style={{ fontWeight: 700, marginBottom: '0.75rem', color: '#ffffff' }}>Tags</h6>
                   {note.tags.map((tag, index) => (
                     <Badge 
                       key={index} 

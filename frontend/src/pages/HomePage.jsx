@@ -60,7 +60,7 @@ function HomePage() {
                       fontWeight: 600
                     }}
                   >
-                    Get Started Free
+                    Get Started — It's Free
                   </Button>
                 )}
               </div>
